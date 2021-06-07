@@ -23,7 +23,6 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - run: npm install
 
         # We're changing got package.json here and republishing it as a CommonJS module under the name got-cjs.
       - name: Change package metadata
@@ -41,15 +40,19 @@ jobs:
           jq '.version = "${{github.event.inputs.package_version}}"' package.json > temp-package.json
           && rm package.json && mv temp-package.json package.json
 
-      - name: Show package.json
-        run: cat package.json
-
         # The TSConfig defines how the package will be built.
       - name: Change tsconfig to CJS
         run: >
           jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
-          package.json > temp-package.json
-          && rm package.json && mv temp-package.json package.json
+          tsconfig.json > temp-tsconfig.json
+          && rm tsconfig.json && mv temp-tsconfig.json tsconfig.json
+
+      - name: Show changed files
+        run: cat package.json && cat tsconfig.json && ls -l
+
+      - name: Install and build
+        # build is done automatically with a post-install hook
+        run: npm install
 
       - uses: JS-DevTools/npm-publish@v1
         with:
