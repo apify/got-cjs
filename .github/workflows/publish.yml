@@ -1,0 +1,59 @@
+on:
+  workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Package version to be published to NPM. Defaults to current version of got.'
+        required: true
+      dist_tag:
+        description: 'What dist tag should be used for publishing (e.g. `next` vs `latest`). Defaults to `next`.'
+        required: true
+        default: next
+
+name: Publish
+
+jobs:
+  prebuild-node:
+    name: Publish package to npm
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          repository: "sindresorhus/got"
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - run: npm install
+
+        # We're changing got package.json here and republishing it as a CommonJS module under the name got-cjs.
+      - name: Change package metadata
+        run: |
+        jq '.name="got-cjs" | .repository = "apify/got-cjs" | .type="commonjs" | .engines.node = ">=12" | .main = .exports | del(.exports)' \
+        package.json > temp-package.json \
+        && rm package.json && mv temp-package.json package.json
+
+        # Version is set manually, because sometimes (when we make a mistake) we might need to release
+        # new versions for the same version of got-cjs. major.minor should be kept. e.g. got@12.0.0
+        # can be occasionally released as got-cjs 12.0.1 but not 12.1.0.
+      - name: Set version if provided
+        if: ${{ github.event.inputs.package_version != null }}
+        run: |
+        jq '.version = "${{github.event.inputs.package_version}}"' package.json > temp-package.json \
+        && rm package.json && mv temp-package.json package.json
+
+      - name: Show package.json
+        run: cat package.json
+
+        # The TSConfig defines how the package will be built.
+      - name: Change tsconfig to CJS
+        run: |
+        jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]' \
+        package.json > temp-package.json \
+        && rm package.json && mv temp-package.json package.json
+
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          access: "public"
+          dry-run: true
+          tag: ${{ github.event.inputs.dist_tag }}
