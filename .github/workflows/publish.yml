@@ -46,7 +46,7 @@ jobs:
         #          && rm temp-tsconfig.json
       - name: Change tsconfig to CJS
         run: >
-          npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json
+          npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json || true
 
       - name: Show changed files
         run: cat package.json && cat tsconfig.json && cat temp-tsconfig.json ls -l
