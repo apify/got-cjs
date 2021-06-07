@@ -3,10 +3,10 @@ on:
     inputs:
       package_version:
         description: 'Package version to be published to NPM. Defaults to current version of got.'
-        required: true
+        required: false
       dist_tag:
         description: 'What dist tag should be used for publishing (e.g. `next` vs `latest`). Defaults to `next`.'
-        required: true
+        required: false
         default: next
 
 name: Publish
@@ -41,15 +41,15 @@ jobs:
           && rm package.json && mv temp-package.json package.json
 
         # The TSConfig defines how the package will be built.
+        # && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
+        #          temp-tsconfig.json > tsconfig.json
+        #          && rm temp-tsconfig.json
       - name: Change tsconfig to CJS
         run: >
           npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json
-          && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
-          temp-tsconfig.json > tsconfig.json
-          && rm temp-tsconfig.json
 
       - name: Show changed files
-        run: cat package.json && cat tsconfig.json && ls -l
+        run: cat package.json && cat tsconfig.json && cat temp-tsconfig.json ls -l
 
       - name: Install and build
         # build is done automatically with a post-install hook
