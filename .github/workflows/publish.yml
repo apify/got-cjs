@@ -49,7 +49,7 @@ jobs:
           npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json || true
 
       - name: Show changed files
-        run: cat package.json && cat tsconfig.json && cat temp-tsconfig.json ls -l
+        run: cat package.json && cat tsconfig.json && cat temp-tsconfig.json && ls -l
 
       - name: Install and build
         # build is done automatically with a post-install hook
