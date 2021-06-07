@@ -41,11 +41,12 @@ jobs:
           && rm package.json && mv temp-package.json package.json
 
         # The TSConfig defines how the package will be built.
-        # && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
-        #          temp-tsconfig.json > tsconfig.json
-        #          && rm temp-tsconfig.json
       - name: Change tsconfig to CJS
-        run: npx strip-json-comments-cli tsconfig.json > temp-tsconfig.json
+        run: |
+          npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json
+          && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
+          temp-tsconfig.json > tsconfig.json
+          && rm temp-tsconfig.json
 
       - name: Show changed files
         run: echo package && cat package.json && echo tsconfig && cat tsconfig.json && echo temp && cat temp-tsconfig.json && ls -l
