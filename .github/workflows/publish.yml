@@ -22,7 +22,7 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
 
         # We're changing got package.json here and republishing it as a CommonJS module under the name got-cjs.
       - name: Change package metadata
@@ -45,7 +45,7 @@ jobs:
         #          temp-tsconfig.json > tsconfig.json
         #          && rm temp-tsconfig.json
       - name: Change tsconfig to CJS
-        run: npm i -g strip-json-comments-cli && strip-json-comments-cli tsconfig.json > temp-tsconfig.json
+        run: npx strip-json-comments-cli tsconfig.json > temp-tsconfig.json
 
       - name: Show changed files
         run: echo package && cat package.json && echo tsconfig && cat tsconfig.json && echo temp && cat temp-tsconfig.json && ls -l
