@@ -49,7 +49,7 @@ jobs:
           && rm temp-tsconfig.json
 
       - name: Show changed files
-        run: echo package && cat package.json && echo tsconfig && cat tsconfig.json && echo temp && cat temp-tsconfig.json && ls -l
+        run: echo package && cat package.json && echo tsconfig && cat tsconfig.json
 
       - name: Install and build
         # build is done automatically with a post-install hook
