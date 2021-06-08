@@ -42,7 +42,7 @@ jobs:
 
         # The TSConfig defines how the package will be built.
       - name: Change tsconfig to CJS
-        run: |
+        run: >
           npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json
           && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
           temp-tsconfig.json > tsconfig.json
