@@ -44,7 +44,7 @@ jobs:
       - name: Change tsconfig to CJS
         run: >
           npx -y strip-json-comments-cli tsconfig.json > temp-tsconfig.json
-          && jq '.module="commonjs" | .target="es2018" | .esModuleInterop=true | .lib=["es2018"]'
+          && jq '.compilerOptions.module="commonjs" | .compilerOptions.target="es2018" | .compilerOptions.esModuleInterop=true | .compilerOptions.lib=["es2018"]'
           temp-tsconfig.json > tsconfig.json
           && rm temp-tsconfig.json
 
