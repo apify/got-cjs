@@ -43,6 +43,13 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     writeFileSync('got/tsconfig.json', JSON.stringify(tsconfigJson, undefined, '\t'));
 }
 
+const s = '\'"`';
+for (const x of s) {
+    const xx = [...s].find(i => i !== x);
+
+    execSync(`find got/source -type f -exec sed -i -E ${xx}s/\\\\s+from\\\\s+${x}node:/ from ${x}/g${xx} {} +`, { stdio: 'inherit' });
+}
+
 execSync('npm install', { cwd: 'got', stdio: 'inherit' });
 
 execSync(`node -e "require('./got')"`, { stdio: 'inherit' });
