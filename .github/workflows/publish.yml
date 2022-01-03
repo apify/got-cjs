@@ -21,9 +21,11 @@ jobs:
         with:
           node-version: 16
 
+      - uses: actions/checkout@v2
+
         # We're changing got package.json here and republishing it as a CommonJS module under the name got-cjs.
       - name: Build CommonJS
-        run: ls && ls .. && node build.mjs
+        run: node build.mjs
 
         # Version is set manually, because sometimes (when we make a mistake) we might need to release
         # new versions for the same version of got-cjs. major.minor should be kept. e.g. got@12.0.0
