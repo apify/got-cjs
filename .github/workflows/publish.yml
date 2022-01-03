@@ -6,7 +6,7 @@ on:
         required: false
       dist_tag:
         description: 'What dist tag should be used for publishing (e.g. `next` vs `latest`). Defaults to `next`.'
-        required: false
+        required: true
         default: next
 
 name: Publish
@@ -23,7 +23,7 @@ jobs:
 
         # We're changing got package.json here and republishing it as a CommonJS module under the name got-cjs.
       - name: Build CommonJS
-        run: node build.mjs
+        run: ls && ls .. && node build.mjs
 
         # Version is set manually, because sometimes (when we make a mistake) we might need to release
         # new versions for the same version of got-cjs. major.minor should be kept. e.g. got@12.0.0
