@@ -10,7 +10,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     const packageJson = JSON.parse(readFileSync('got/package.json'));
 
     packageJson.name = 'got-cjs';
-    packageJson.respository = 'apify/got-cjs';
+    packageJson.repository = 'apify/got-cjs';
     packageJson.type = 'commonjs';
     packageJson.engines.node = '>=12';
     packageJson.main = packageJson.exports;
