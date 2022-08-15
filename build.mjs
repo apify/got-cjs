@@ -19,6 +19,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     packageJson.dependencies['@szmarczak/http-timer'] = '4.0.6';
     packageJson.dependencies['lowercase-keys'] = '2.0.0';
     packageJson.dependencies['@sindresorhus/is'] = '4.6.0';
+    packageJson.dependencies['form-data-encoder'] = '1.7.2';
 
     delete packageJson.exports;
     
