@@ -18,12 +18,13 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     packageJson.dependencies['p-cancelable'] = '2.1.1';
     packageJson.dependencies['@szmarczak/http-timer'] = '4.0.6';
     packageJson.dependencies['lowercase-keys'] = '2.0.0';
+    packageJson.dependencies['@sindresorhus/is'] = '4.6.0';
 
     delete packageJson.exports;
     
     console.log('package.json', packageJson);
 
-    writeFileSync('got/package.json', JSON.stringify(packageJson, undefined, '\t'));   
+    writeFileSync('got/package.json', JSON.stringify(packageJson, undefined, '\t'));
 }
 
 {
