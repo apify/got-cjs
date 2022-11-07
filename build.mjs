@@ -90,6 +90,21 @@ import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';
 writeFileSync('got/source/core/index.ts', sourceCoreIndex);
 }
 
+{
+const sourceCoreOptions = readFileSync('got/source/core/options.ts', 'utf-8')
+.replace(`import {isFormData} from 'form-data-encoder';
+import type {FormDataLike} from 'form-data-encoder';`, `// @ts-expect-error fails to find types
+import {isFormData} from 'form-data-encoder';
+// @ts-expect-error fails to find types
+import type {FormDataLike} from 'form-data-encoder';`)
+.replace(`import type {StorageAdapter} from 'cacheable-request';
+`, '')
+.replaceAll('string | StorageAdapter | boolean | undefined', 'any')
+.replace('assert.truthy(value.readable);', 'assert.truthy((value as any).readable);');
+
+writeFileSync('got/source/core/options.ts', sourceCoreOptions);
+}
+
 const s = '\'"`';
 for (const x of s) {
     const xx = [...s].find(i => i !== x);
