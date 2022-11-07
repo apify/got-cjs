@@ -24,6 +24,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     packageJson.dependencies['cacheable-lookup'] = '6.1.0';
     packageJson.dependencies['form-data-encoder'] = '1.7.2';
     packageJson.dependencies['cacheable-request'] = '7.0.2';
+    packageJson.dependencies['@types/responselike'] = '1.0.0';
 
     packageJson.devDependencies['p-event'] = '4.2.0';
     packageJson.devDependencies['to-readable-stream'] = '2.1.0';
@@ -101,10 +102,7 @@ import type {FormDataLike} from 'form-data-encoder';`)
 .replace(`import type {StorageAdapter} from 'cacheable-request';
 `, '')
 .replaceAll('string | StorageAdapter | boolean | undefined', 'any')
-.replace('assert.truthy(value.readable);', 'assert.truthy((value as any).readable);')
-.replace(`import type ResponseLike from 'responselike';
-`, '')
-.replaceAll(' | ResponseLike', '');
+.replace('assert.truthy(value.readable);', 'assert.truthy((value as any).readable);');
 
 writeFileSync('got/source/core/options.ts', sourceCoreOptions);
 }
