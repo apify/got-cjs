@@ -65,12 +65,16 @@ const sourceCoreIndex = readFileSync('got/source/core/index.ts', 'utf-8')
 	type CacheableRequestFunction,
 	type CacheableOptions,
 } from 'cacheable-request';
-`, '')
+`, `import CacheableRequest from 'cacheable-request';`)
 .replace(`
 			if (error instanceof CacheableCacheError) {
 				throw new CacheError(error, this);
 			}
-`, '')
+`, `
+			if (error.name === 'CacheError') {
+				throw new CacheError(error, this);
+			}
+`)
 .replace(`type Error = NodeJS.ErrnoException;`, `type Error = NodeJS.ErrnoException;
 
 type StorageAdapter = any;
