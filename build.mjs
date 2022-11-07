@@ -84,8 +84,9 @@ type CacheableOptions = any;`)
 .replace(`import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`, `// @ts-ignore
 import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`)
 .replace('body.destroy();', '(body as any).destroy();')
-.replace(`			const cacheableRequest = new CacheableRequest(`, `			// @ts-expect-error The code below is for newer CacheableRequest version
-			const cacheableRequest = new CacheableRequest(`);
+.replace('const cacheableRequest = new CacheableRequest(', 'cacheableStore.set(cache, new CacheableRequest(')
+.replace(`			);
+			cacheableStore.set(cache, cacheableRequest.request());`, '			));');
 
 writeFileSync('got/source/core/index.ts', sourceCoreIndex);
 }
