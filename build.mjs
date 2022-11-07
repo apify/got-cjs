@@ -51,6 +51,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     tsconfigJson.compilerOptions.target = 'es2020';
     tsconfigJson.compilerOptions.esModuleInterop = true;
     tsconfigJson.compilerOptions.lib = ['es2020'];
+    tsconfigJson.include = ['source'];
 
     console.log('tsconfig.json', tsconfigJson);
 
@@ -71,8 +72,8 @@ const sourceCoreIndex = readFileSync('got/source/core/index.ts', 'utf-8')
 				throw new CacheError(error, this);
 			}
 `, `
-			if (error.name === 'CacheError') {
-				throw new CacheError(error, this);
+			if ((error as any).name === 'CacheError') {
+				throw new CacheError(error as any, this);
 			}
 `)
 .replace(`type Error = NodeJS.ErrnoException;`, `type Error = NodeJS.ErrnoException;
