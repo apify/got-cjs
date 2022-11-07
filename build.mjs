@@ -31,9 +31,10 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     packageJson.devDependencies['pify'] = '5.0.0';
     packageJson.devDependencies['tempy'] = '1.0.1';
     packageJson.devDependencies['node-fetch'] = '2.6.7';
+    packageJson.devDependencies['@types/node-fetch'] = '2.6.2';
 
     delete packageJson.exports;
-    
+
     console.log('package.json', packageJson);
 
     writeFileSync('got/package.json', JSON.stringify(packageJson, undefined, '\t'));
@@ -47,9 +48,9 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     );
 
     tsconfigJson.compilerOptions.module = 'commonjs';
-    tsconfigJson.compilerOptions.target = 'es2018';
+    tsconfigJson.compilerOptions.target = 'es2020';
     tsconfigJson.compilerOptions.esModuleInterop = true;
-    tsconfigJson.compilerOptions.lib = ['es2018'];
+    tsconfigJson.compilerOptions.lib = ['es2020'];
 
     console.log('tsconfig.json', tsconfigJson);
 
