@@ -51,7 +51,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     tsconfigJson.compilerOptions.target = 'es2020';
     tsconfigJson.compilerOptions.esModuleInterop = true;
     tsconfigJson.compilerOptions.lib = ['es2020'];
-    tsconfigJson.include = ['source'];
+    tsconfigJson.include = ['source', 'benchmark', /* 'test' */];
 
     console.log('tsconfig.json', tsconfigJson);
 
