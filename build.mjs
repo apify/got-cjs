@@ -101,7 +101,10 @@ import type {FormDataLike} from 'form-data-encoder';`)
 .replace(`import type {StorageAdapter} from 'cacheable-request';
 `, '')
 .replaceAll('string | StorageAdapter | boolean | undefined', 'any')
-.replace('assert.truthy(value.readable);', 'assert.truthy((value as any).readable);');
+.replace('assert.truthy(value.readable);', 'assert.truthy((value as any).readable);')
+.replace(`import type ResponseLike from 'responselike';
+`, '')
+.replaceAll(' | ResponseLike', '');
 
 writeFileSync('got/source/core/options.ts', sourceCoreOptions);
 }
