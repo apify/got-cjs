@@ -23,7 +23,7 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
     packageJson.dependencies['responselike'] = '2.0.1';
     packageJson.dependencies['cacheable-lookup'] = '6.1.0';
     packageJson.dependencies['form-data-encoder'] = '1.7.2';
-    packageJson.dependencies['cacheable-request'] = '8.3.1';
+    packageJson.dependencies['cacheable-request'] = '7.0.2';
 
     packageJson.devDependencies['p-event'] = '4.2.0';
     packageJson.devDependencies['to-readable-stream'] = '2.1.0';
