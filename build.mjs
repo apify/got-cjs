@@ -58,22 +58,27 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
 }
 
 {
-const sourceCoreIndex = readFileSync('got/source/core/index.ts').replace(`import CacheableRequest, {
+const sourceCoreIndex = readFileSync('got/source/core/index.ts', 'utf-8')
+.replace(`import CacheableRequest, {
 	CacheError as CacheableCacheError,
 	type StorageAdapter,
 	type CacheableRequestFunction,
 	type CacheableOptions,
 } from 'cacheable-request';
-`, '').replace(`
+`, '')
+.replace(`
 			if (error instanceof CacheableCacheError) {
 				throw new CacheError(error, this);
 			}
-`, '').replace(`type Error = NodeJS.ErrnoException;`, `type Error = NodeJS.ErrnoException;
+`, '')
+.replace(`type Error = NodeJS.ErrnoException;`, `type Error = NodeJS.ErrnoException;
 
 type StorageAdapter = any;
 type CacheableRequestFunction = any;
-type CacheableOptions = any;`).replace(`import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`, `// @ts-ignore
-import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`).replace('body.destroy();', '(body as any).destroy();');
+type CacheableOptions = any;`)
+.replace(`import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`, `// @ts-ignore
+import {FormDataEncoder, isFormData as isFormDataLike} from 'form-data-encoder';`)
+.replace('body.destroy();', '(body as any).destroy();');
 
 writeFileSync('got/source/core/index.ts', sourceCoreIndex);
 }
