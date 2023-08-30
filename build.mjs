@@ -9,29 +9,29 @@ execSync('git clone https://github.com/sindresorhus/got', { stdio: 'inherit' });
 {
     const packageJson = JSON.parse(readFileSync('got/package.json'));
 
-    packageJson.name = 'got-cjs';
+    packageJson.name = 'got-cjs2';
     packageJson.repository = 'apify/got-cjs';
     packageJson.type = 'commonjs';
-    packageJson.engines.node = '>=12';
+    packageJson.engines.node = '>=16';
     packageJson.main = packageJson.exports;
 
-    packageJson.dependencies['p-cancelable'] = '2.1.1';
-    packageJson.dependencies['@szmarczak/http-timer'] = '4.0.6';
-    packageJson.dependencies['lowercase-keys'] = '2.0.0';
-    packageJson.dependencies['@sindresorhus/is'] = '4.6.0';
-    packageJson.dependencies['form-data-encoder'] = '1.7.2';
-    packageJson.dependencies['responselike'] = '2.0.1';
-    packageJson.dependencies['cacheable-lookup'] = '6.1.0';
-    packageJson.dependencies['form-data-encoder'] = '1.7.2';
-    packageJson.dependencies['cacheable-request'] = '7.0.2';
-    packageJson.dependencies['@types/responselike'] = '1.0.0';
+    packageJson.dependencies['p-cancelable'] = '^3.0.0';
+    packageJson.dependencies['@szmarczak/http-timer'] = '^5.0.1';
+    packageJson.dependencies['lowercase-keys'] = '^3.0.0';
+    packageJson.dependencies['@sindresorhus/is'] = '^5.2.0';
+    packageJson.dependencies['form-data-encoder'] = '^2.1.2';
+    packageJson.dependencies['responselike'] = '^3.0.0';
+    packageJson.dependencies['cacheable-lookup'] = '^7.0.0';
+    packageJson.dependencies['form-data-encoder'] = '^2.1.2';
+    packageJson.dependencies['cacheable-request'] = '^10.2.8';
+    packageJson.dependencies['@types/responselike'] = '^3.0.0';
 
-    packageJson.devDependencies['p-event'] = '4.2.0';
+    packageJson.devDependencies['p-event'] = '^5.0.1';
     packageJson.devDependencies['to-readable-stream'] = '2.1.0';
-    packageJson.devDependencies['formdata-node'] = '4.4.1';
-    packageJson.devDependencies['pify'] = '5.0.0';
-    packageJson.devDependencies['tempy'] = '1.0.1';
-    packageJson.devDependencies['node-fetch'] = '2.6.7';
+    packageJson.devDependencies['formdata-node'] = '^5.0.0';
+    packageJson.devDependencies['pify'] = '^6.0.0';
+    packageJson.devDependencies['tempy'] = '^3.0.0';
+    packageJson.devDependencies['node-fetch'] = '^3.2.3';
     packageJson.devDependencies['@types/node-fetch'] = '2.6.2';
 
     delete packageJson.exports;
